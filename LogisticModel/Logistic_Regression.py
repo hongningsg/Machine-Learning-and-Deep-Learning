@@ -1,8 +1,5 @@
 import numpy as np
-from utils.sigmoid import sigmoid
-from sklearn.datasets import load_iris
-from utils.step_function import step_function
-
+from utils.sigmoid import logistic_function, step_function
 
 class Logistic_Regression():
 
@@ -15,7 +12,7 @@ class Logistic_Regression():
 
     def _forward_propagate(self, X, w, b):
         z = np.dot(X, w) + b
-        h = sigmoid(z)
+        h = logistic_function(z)
         return h
 
     def _cost(self, h, y):
