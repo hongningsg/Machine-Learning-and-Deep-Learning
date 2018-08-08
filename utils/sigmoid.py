@@ -1,7 +1,9 @@
 from numpy import exp
 
-def logistic_function(z):
+
+def sigmoid(z):
     return 1/(1+exp(-z))
+
 
 def step_function(threshold, h):
     if h > threshold:
