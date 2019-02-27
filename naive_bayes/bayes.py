@@ -99,7 +99,7 @@ class MultinomialNB():
         self._prior_prob(y) # P(y=1), P(y=0), etc
         splitted_data = self._split_data(X, y) # dictionary with keys of y values
         # learn the conditional probability from data
-        self._conditional_prob(splitted_data)
+        self._conditional_prob(splitted_data) # shape = (c, n)
 
     def predict(self, X):
         """Predict the data with self.prior and self.conditional
@@ -114,8 +114,8 @@ class MultinomialNB():
            None
            """
         prior = self.prior
-        cond_prob = self.conditional
-        P_class = np.ones(shape=(len(X), len(prior)))
+        cond_prob = self.conditional # shape=(c, n)
+        P_class = np.ones(shape=(len(X), len(prior))) # shape=(m, c)
         for i in range(len(X)):
             prob = np.prod(np.power(cond_prob, X[i]), axis=1)
             prob = np.multiply(prior, prob)
@@ -131,6 +131,7 @@ if __name__ == "__main__":
     nb = MultinomialNB()
 
     # Multinomial Toy Data
+    # https: // www.youtube.com / watch?v = km2LoOpdB3A
     X = np.array([[2, 1, 0, 0, 0, 0],
          [2, 0, 1, 0, 0, 0],
          [1, 0, 0, 1, 0, 0],
@@ -145,5 +146,6 @@ if __name__ == "__main__":
     # run
     nb.fit(X, y)
     pred = nb.predict(X_test)
+    print(nb.conditional)
     print(pred)
 
